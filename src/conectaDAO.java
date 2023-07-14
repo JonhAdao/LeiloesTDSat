@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 public class conectaDAO {
 
-    public Connection connectDB() throws ClassNotFoundException {
+    public Connection connectDB() {
 
         try {
 

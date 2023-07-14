@@ -19,7 +19,7 @@ public class ProdutosDAO {
     private Connection conn;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
 
-    public ProdutosDAO() throws ClassNotFoundException {
+    public ProdutosDAO() {
         this.conexao = new conectaDAO();
         this.conn = this.conexao.connectDB();
     }

@@ -70,4 +70,22 @@ public class ProdutosDAO {
 
     }
 
+    public void venderProduto(int id) {
+        String sql = "UPDATE produtos SET status=? WHERE id=?";
+        try {
+
+            PreparedStatement pstm = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+
+            String status = "Vendido";
+            pstm.setString(1, status);
+            pstm.setInt(2, id);
+
+            pstm.execute();
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao vender Produto: " + e.getMessage());
+        }
+    }
+
 }

@@ -70,4 +70,50 @@ public class ProdutosDAO {
 
     }
 
+    public void venderProduto(int id) {
+        String sql = "UPDATE produtos SET status=? WHERE id=?";
+        try {
+
+            PreparedStatement pstm = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+
+            String status = "Vendido";
+            pstm.setString(1, status);
+            pstm.setInt(2, id);
+            pstm.execute();
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao vender Produto: " + e.getMessage());
+        }
+    }
+
+    public ArrayList<ProdutosDTO> listarProdutosVendidos() {
+        String sql = "SELECT* FROM produtos WHERE  status LIKE ?";
+
+        try {
+
+            PreparedStatement pstm = this.conn.prepareStatement(sql);
+            pstm.setString(1, "%Vendido%");
+            ResultSet rs = pstm.executeQuery();
+
+            ArrayList<ProdutosDTO> listaProdutos = new ArrayList<>();
+
+            while (rs.next()) {
+                ProdutosDTO produtos = new ProdutosDTO();
+
+                produtos.setId(rs.getInt("id"));
+                produtos.setNome(rs.getString("nome"));
+                produtos.setValor(rs.getInt("valor"));
+                produtos.setStatus(rs.getString("status"));
+
+                listaProdutos.add(produtos);
+            }
+
+            return listaProdutos;
+
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
 }

@@ -80,7 +80,6 @@ public class ProdutosDAO {
             String status = "Vendido";
             pstm.setString(1, status);
             pstm.setInt(2, id);
-
             pstm.execute();
 
         } catch (SQLException e) {
